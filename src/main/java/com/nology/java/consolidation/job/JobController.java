@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,16 +28,11 @@ public class JobController {
 
 	
 	@GetMapping()
-	public List<Job> getAllJobs(){
-		return JobService.getAllJobs();
-	}
-	
-	@GetMapping("/assigned={bool}")
-	public List<Job> getAllJobsTF(@PathVariable Boolean bool){
+	public List<Job> getAllJobs(@RequestParam(required = false) Boolean bool){
+		if (bool == null) return JobService.getAllJobs();
 		return JobService.getAllJobsTF(bool);
 	}
 
-	
 	@PostMapping()
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public void saveJob(@Valid @RequestBody JobDTO job) {
