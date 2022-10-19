@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nology.java.consolidation.temp.Temp;
+import com.nology.java.consolidation.temp.TempRepository;
 import com.nology.java.consolidation.temp.TempService;
 
 @Service
@@ -21,7 +23,8 @@ public class JobService {
 	private JobRepository jRepo;
 	
 	@Autowired
-	private TempService tempService;
+	private TempRepository tRepo;
+	
 	
 	public List<Job> getAllJobs() {
 		return jRepo.findAll();
@@ -45,20 +48,20 @@ public class JobService {
 		return filtered;
 	}
 
-	public void createJob(JobDTO job) {	
+	public Job createJob(JobDTO job) {	
 		Job j = new Job(job.getName(),job.getStartDate(),job.getEndDate());
 		
-		jRepo.save(j);
+		return jRepo.save(j);
 		
 	}
 
-	public Job getJob(Long id) {
-		return jRepo.findById(id).get();
+	public Optional<Job> getJob(Long id) {
+		return jRepo.findById(id);
 	}
 	
 	
 	public Job updateJob (Long jobId,JobDTO jobData) {
-		Job fetchedJob = this.getJob(jobId);
+		Job fetchedJob = jRepo.findById(jobId).get();
 		if(fetchedJob == null) return null;
 		Job existentJob = fetchedJob;
 		
@@ -78,7 +81,7 @@ public class JobService {
 		}
 		
 		Long tId = existentJob.gettId();
-		Temp fetchedTemp = tempService.getTemp(tId);
+		Temp fetchedTemp = tRepo.findById(tId).get();
 		if(fetchedTemp == null) return null;
 		
 		Temp existentTemp = fetchedTemp;

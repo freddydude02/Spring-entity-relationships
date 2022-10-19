@@ -1,6 +1,7 @@
 package com.nology.java.consolidation.temp;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,25 +29,41 @@ public class TempController {
 	private TempService tempService;
 	
 	@GetMapping()
-	public List<Temp> getAllTemps(){
-		return tempService.getAllTemps();
+	public ResponseEntity<List<Temp>> getAllTemps(@RequestParam(required = false) Long jobid){
+		
+		if (jobid == null) {
+			List<Temp> temp = tempService.getAllTemps();
+			System.out.println(temp);
+			if (temp == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			
+			return new ResponseEntity<>(temp, HttpStatus.OK);
+		}
+		else {
+			List<Temp> temp = tempService.getAllAvailableTemps(jobid);
+			if (temp == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(temp, HttpStatus.OK);
+		}
 	}
 	
-	@GetMapping("/job/{jobId}")
-	public List<Temp> getAllAvailableTemps(@PathVariable Long jobId) {
-		return tempService.getAllAvailableTemps(jobId);
-	}
+//	@GetMapping("/job/{jobId}")
+//	public List<Temp> getAllAvailableTemps(@PathVariable Long jobId) {
+//		return tempService.getAllAvailableTemps(jobId);
+//	}
 	
 	@PostMapping()
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public void saveTemp(@Valid @RequestBody TempDTO temp) {
-		
-		tempService.createTemp(temp);
+	public ResponseEntity<Temp> saveTemp(@Valid @RequestBody TempDTO tempData) {
+		Temp temp = tempService.createTemp(tempData);
+		return new ResponseEntity<>(temp,HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{id}")
-	public Temp getTemp(@PathVariable Long id) {
-		return tempService.getTemp(id);
+	public ResponseEntity<Optional<Temp>> getTemp(@PathVariable Long id) {
+		Optional<Temp> temp = tempService.getTemp(id);
+		
+		if (Optional.empty().equals(temp)) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(temp,HttpStatus.OK);
 	}
 	
 	@PutMapping("/{tempId}")

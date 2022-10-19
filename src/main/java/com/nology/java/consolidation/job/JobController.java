@@ -1,6 +1,7 @@
 package com.nology.java.consolidation.job;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -29,22 +30,28 @@ public class JobController {
 	
 	@GetMapping()
 	public List<Job> getAllJobs(@RequestParam(required = false) Boolean bool){
+		System.out.println(bool);
 		if (bool == null) return JobService.getAllJobs();
 		return JobService.getAllJobsTF(bool);
 	}
 
 	@PostMapping()
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public void saveJob(@Valid @RequestBody JobDTO job) {
-		if(job.getStartDate().isBefore(job.getEndDate()) || job.getStartDate().isEqual(job.getEndDate())) {
-			JobService.createJob(job);
+	public ResponseEntity<Job> saveJob(@Valid @RequestBody JobDTO jobData) {
+		if(jobData.getStartDate().isAfter(jobData.getEndDate())) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
+		Job job = JobService.createJob(jobData);
+		return new ResponseEntity<>(job, HttpStatus.CREATED);
 	}
 
-	
 	@GetMapping("/{id}")
-	public Job getJob(@PathVariable Long id) {
-		return JobService.getJob(id);
+	public ResponseEntity<Optional<Job>> getJob(@PathVariable Long id) {
+		Optional<Job> job = JobService.getJob(id);
+		
+		if (Optional.empty().equals(job)) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(job, HttpStatus.OK);
 	}
 	
 	@PutMapping("/{jobId}")
