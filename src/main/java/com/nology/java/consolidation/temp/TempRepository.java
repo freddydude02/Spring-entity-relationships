@@ -1,4 +1,4 @@
-package com.nology.java.consolidation;
+package com.nology.java.consolidation.temp;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

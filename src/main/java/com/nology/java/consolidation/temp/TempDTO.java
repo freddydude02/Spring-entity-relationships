@@ -1,8 +1,10 @@
-package com.nology.java.consolidation;
+package com.nology.java.consolidation.temp;
 
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
+
+import com.nology.java.consolidation.job.Job;
 
 public class TempDTO {
 

@@ -1,8 +1,10 @@
-package com.nology.java.consolidation;
+package com.nology.java.consolidation.job;
 
 import java.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
+
+import com.nology.java.consolidation.temp.Temp;
 
 
 public class JobDTO {
@@ -16,6 +18,8 @@ public class JobDTO {
 	
 	@NotNull
 	public LocalDate endDate;
+	
+	public Long tId;
 	
 	public Temp temp;
 
@@ -42,6 +46,12 @@ public class JobDTO {
 		this.endDate = endDate;
 	}
 
+	public Long getTid() {
+		return tId;
+	}
+	public void setTid(Long tId) {
+		this.tId = tId;
+	}
 	public Temp getTemp() {
 		return temp;
 	}

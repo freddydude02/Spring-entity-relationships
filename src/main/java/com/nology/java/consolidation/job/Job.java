@@ -1,4 +1,4 @@
-package com.nology.java.consolidation;
+package com.nology.java.consolidation.job;
 
 import java.time.LocalDate;
 
@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.nology.java.consolidation.temp.Temp;
+
 @Entity
 public class Job {
 	
@@ -20,16 +23,20 @@ public class Job {
 	private String name;
 	private LocalDate startDate;
 	private LocalDate endDate;
+	private Long tId;
+	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "temp_id")
+	@JsonBackReference
 	private Temp temp;
 
-	public Job(String name, LocalDate startDate, LocalDate endDate, Temp temp) {
+	public Job(String name, LocalDate startDate, LocalDate endDate) {
 		this.setName(name);
 		this.setStartDate(startDate);
 		this.setEndDate(endDate);
-		this.setTemp(temp);
+//		this.settId(tId);
+//		this.setTemp(temp);
 	}
 	
 	public Job() {
@@ -61,15 +68,19 @@ public class Job {
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
-	public Temp getTemp(Temp temp) {
+	public Long gettId() {
+		return tId;
+	}
+	public void settId(Long tId) {
+		this.tId = tId;
+	}
+	public Temp getTemp() {
 		return temp;
 	}
 	public void setTemp(Temp temp) {
 		this.temp = temp;
 	}
-	public Temp findTemp() {
-		return temp;
-	}
+
 	
 
 	
