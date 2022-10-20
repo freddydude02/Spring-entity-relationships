@@ -28,14 +28,12 @@ public class TempController {
 	@Autowired
 	private TempService tempService;
 	
-	@GetMapping()
+	@GetMapping
 	public ResponseEntity<List<Temp>> getAllTemps(@RequestParam(required = false) Long jobid){
 		
 		if (jobid == null) {
 			List<Temp> temp = tempService.getAllTemps();
-			System.out.println(temp);
 			if (temp == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			
 			return new ResponseEntity<>(temp, HttpStatus.OK);
 		}
 		else {
@@ -44,11 +42,6 @@ public class TempController {
 			return new ResponseEntity<>(temp, HttpStatus.OK);
 		}
 	}
-	
-//	@GetMapping("/job/{jobId}")
-//	public List<Temp> getAllAvailableTemps(@PathVariable Long jobId) {
-//		return tempService.getAllAvailableTemps(jobId);
-//	}
 	
 	@PostMapping()
 	public ResponseEntity<Temp> saveTemp(@Valid @RequestBody TempDTO tempData) {
@@ -75,6 +68,7 @@ public class TempController {
 		return new ResponseEntity<>(temp, HttpStatus.NO_CONTENT);
 	}
 
+	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void deleteTemp(@PathVariable Long id) {
 		tempService.deleteTemp(id);

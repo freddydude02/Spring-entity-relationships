@@ -32,11 +32,14 @@ public class TempService {
 	
 	public List<Temp> getAllAvailableTemps (Long jobId) {
 		
-		Job fetchedJob = jRepo.findById(jobId).get();
 		
-		if(fetchedJob == null) return null;
 		
-		Job existentJob = fetchedJob;
+		Optional<Job> fetchedJob = jRepo.findById(jobId);
+		
+		if(fetchedJob.isEmpty()) return null;
+		
+		Job existentJob = jRepo.findById(jobId).get();
+		
 		ArrayList<Temp> tempList = new ArrayList<>();
 		
 		for (Temp temp: getAllTemps()) {
@@ -97,11 +100,11 @@ public class TempService {
 	}
 
 	public Temp updateTemp (Long tempId, TempDTO tempData) {
-		Temp fetchedTemp = tRepo.findById(tempId).get();
+		Optional<Temp> fetchedTemp = getTemp(tempId);
 		
-		if(fetchedTemp == null) return null;
+		if(fetchedTemp.isEmpty()) return null;
 		
-		Temp existentTemp = fetchedTemp;
+		Temp existentTemp = tRepo.findById(tempId).get();
 		
 		if(tempData.getFirstName() != null && !tempData.getFirstName().equals("")) {
 			existentTemp.setFirstName(tempData.getFirstName());

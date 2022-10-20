@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.nology.java.consolidation.temp.Temp;
 import com.nology.java.consolidation.temp.TempRepository;
@@ -133,6 +135,7 @@ public class JobService {
 		return this.jRepo.save(existentJob);
 	}
 	
+	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void deleteJob (Long id) {
 		jRepo.deleteById(id);
 	}

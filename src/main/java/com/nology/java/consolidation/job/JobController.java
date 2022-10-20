@@ -28,14 +28,14 @@ public class JobController {
 	private JobService JobService;
 
 	
-	@GetMapping()
+	@GetMapping
 	public List<Job> getAllJobs(@RequestParam(required = false) Boolean bool){
 		System.out.println(bool);
 		if (bool == null) return JobService.getAllJobs();
 		return JobService.getAllJobsTF(bool);
 	}
 
-	@PostMapping()
+	@PostMapping
 	public ResponseEntity<Job> saveJob(@Valid @RequestBody JobDTO jobData) {
 		if(jobData.getStartDate().isAfter(jobData.getEndDate())) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

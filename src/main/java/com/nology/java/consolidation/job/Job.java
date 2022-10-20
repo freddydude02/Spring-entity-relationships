@@ -35,8 +35,6 @@ public class Job {
 		this.setName(name);
 		this.setStartDate(startDate);
 		this.setEndDate(endDate);
-//		this.settId(tId);
-//		this.setTemp(temp);
 	}
 	
 	public Job() {
