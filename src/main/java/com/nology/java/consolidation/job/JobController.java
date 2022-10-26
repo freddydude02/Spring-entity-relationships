@@ -54,7 +54,7 @@ public class JobController {
 		return new ResponseEntity<>(job, HttpStatus.OK);
 	}
 	
-	@PutMapping("/{jobId}")
+	@PatchMapping("/{jobId}")
 	public ResponseEntity<Job> assignJob(@PathVariable Long jobId,@RequestBody JobDTO data) {
 		Job job = JobService.updateJob(jobId,data);
 		if (job == null) {

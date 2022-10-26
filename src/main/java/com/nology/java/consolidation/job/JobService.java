@@ -63,9 +63,9 @@ public class JobService {
 	
 	
 	public Job updateJob (Long jobId,JobDTO jobData) {
-		Job fetchedJob = jRepo.findById(jobId).get();
-		if(fetchedJob == null) return null;
-		Job existentJob = fetchedJob;
+		Optional<Job> fetchedJob = jRepo.findById(jobId);
+		if(fetchedJob.isEmpty()) return null;
+		Job existentJob = jRepo.findById(jobId).get();
 		
 //		details update begins:
 		
@@ -83,10 +83,10 @@ public class JobService {
 		}
 		
 		Long tId = existentJob.gettId();
-		Temp fetchedTemp = tRepo.findById(tId).get();
-		if(fetchedTemp == null) return null;
+		Optional<Temp> fetchedTemp = tRepo.findById(tId);
+		if(fetchedTemp.isEmpty()) return null;
 		
-		Temp existentTemp = fetchedTemp;
+		Temp existentTemp = tRepo.findById(tId).get();
 //		date checking begins:
 //		zero check
 		if(existentTemp.getJobArr().size() == 0) {
@@ -137,7 +137,7 @@ public class JobService {
 	
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void deleteJob (Long id) {
-		jRepo.deleteById(id);
+		 jRepo.deleteById(id);
 	}
 	
 	

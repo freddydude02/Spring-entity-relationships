@@ -43,7 +43,7 @@ public class TempController {
 		}
 	}
 	
-	@PostMapping()
+	@PostMapping
 	public ResponseEntity<Temp> saveTemp(@Valid @RequestBody TempDTO tempData) {
 		Temp temp = tempService.createTemp(tempData);
 		return new ResponseEntity<>(temp,HttpStatus.CREATED);
@@ -53,24 +53,27 @@ public class TempController {
 	public ResponseEntity<Optional<Temp>> getTemp(@PathVariable Long id) {
 		Optional<Temp> temp = tempService.getTemp(id);
 		
-		if (Optional.empty().equals(temp)) {
+		if (temp.isEmpty()) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(temp,HttpStatus.OK);
 	}
 	
-	@PutMapping("/{tempId}")
-	public ResponseEntity<Temp> updateTemp(@PathVariable Long tempId,@RequestBody TempDTO data) {
+	@PatchMapping("/{tempId}")
+	public ResponseEntity<Temp> updateTemp(@PathVariable Long tempId,@Valid @RequestBody TempDTO data) {
 		Temp temp = tempService.updateTemp(tempId, data);
 		if (temp == null) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(temp, HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(temp, HttpStatus.OK);
 	}
 
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
-	public void deleteTemp(@PathVariable Long id) {
-		tempService.deleteTemp(id);
+	public ResponseEntity<String> deleteTemp(@PathVariable Long id) {
+		String temp = tempService.deleteTemp(id);
+		if (temp == null) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
 	}
 }

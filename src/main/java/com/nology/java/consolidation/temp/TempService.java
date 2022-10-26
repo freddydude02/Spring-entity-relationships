@@ -112,12 +112,14 @@ public class TempService {
 		if(tempData.getLastName() != null && !tempData.getLastName().equals("")) {
 			existentTemp.setLastName(tempData.getLastName());
 		}
-
 		return this.tRepo.save(existentTemp);
 	}
 	
-	public void deleteTemp (Long id) {
+	public String deleteTemp (Long id) {
+		Optional<Temp> fetchedTemp = getTemp(id);
+		if(fetchedTemp.isEmpty()) return null;
 		tRepo.deleteById(id);
+		return "";
 	}
 	
 	
