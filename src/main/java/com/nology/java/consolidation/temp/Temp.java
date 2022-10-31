@@ -21,13 +21,17 @@ public class Temp {
 	private Long id;
 	private String firstName;
 	private String lastName;
+	private String userName;
+	private String passWord;
 	
 	@OneToMany(mappedBy = "temp", cascade = CascadeType.ALL)
 	private List<Job> jobArr;
 
-	public Temp(String firstName, String lastName) {
+	public Temp(String firstName, String lastName, String userName, String passWord) {
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
+		this.setUserName(userName);
+		this.setPassWord(passWord);
 	}
 
 	public Temp() {
@@ -56,6 +60,23 @@ public class Temp {
 	public void setJobArr(List<Job> jobArr) {
 		this.jobArr = jobArr;
 	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassWord() {
+		return passWord;
+	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
+	
 	
 	
 }

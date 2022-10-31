@@ -90,8 +90,8 @@ public class TempService {
 		return tempList;
 	}
 	
-	public Temp createTemp(TempDTO temp) {
-		Temp t = new Temp(temp.getFirstName(),temp.getLastName());
+	public Temp createTemp(TempDTO tempData) {
+		Temp t = new Temp(tempData.getFirstName(),tempData.getLastName(),tempData.getUserName(),tempData.getPassWord());
 		return tRepo.save(t);
 	}
 	
