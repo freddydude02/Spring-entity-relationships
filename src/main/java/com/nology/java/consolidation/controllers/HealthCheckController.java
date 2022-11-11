@@ -1,4 +1,4 @@
-package com.nology.java.consolidation.healthCheck;
+package com.nology.java.consolidation.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

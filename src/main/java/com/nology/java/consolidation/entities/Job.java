@@ -1,4 +1,4 @@
-package com.nology.java.consolidation.job;
+package com.nology.java.consolidation.entities;
 
 import java.time.LocalDate;
 
@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.nology.java.consolidation.temp.Temp;
 
 @Entity
 public class Job {

@@ -1,10 +1,10 @@
-package com.nology.java.consolidation.job;
+package com.nology.java.consolidation.dtos;
 
 import java.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
 
-import com.nology.java.consolidation.temp.Temp;
+import com.nology.java.consolidation.entities.Temp;
 
 
 public class JobDTO {

@@ -1,4 +1,4 @@
-package com.nology.java.consolidation.job;
+package com.nology.java.consolidation.services;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.nology.java.consolidation.temp.Temp;
-import com.nology.java.consolidation.temp.TempRepository;
-import com.nology.java.consolidation.temp.TempService;
+import com.nology.java.consolidation.dtos.JobDTO;
+import com.nology.java.consolidation.entities.Job;
+import com.nology.java.consolidation.entities.Temp;
+import com.nology.java.consolidation.repositories.JobRepository;
+import com.nology.java.consolidation.repositories.TempRepository;
 
 @Service
 @Transactional

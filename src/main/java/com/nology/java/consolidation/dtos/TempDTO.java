@@ -1,11 +1,11 @@
-package com.nology.java.consolidation.temp;
+package com.nology.java.consolidation.dtos;
 
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.nology.java.consolidation.job.Job;
+import com.nology.java.consolidation.entities.Job;
 
 public class TempDTO {
 
@@ -18,14 +18,6 @@ public class TempDTO {
 	public String LastName;
 	
 	public List<Job> jobArr;
-	
-	@NotNull
-	@NotBlank
-	public String userName;
-	
-	@NotNull
-	@NotBlank
-	public String passWord;
 
 
 	public String getFirstName() {
@@ -51,22 +43,6 @@ public class TempDTO {
 		this.jobArr = jobArr;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassWord() {
-		return passWord;
-	}
-
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
-	}
-	
 
 	
 	
