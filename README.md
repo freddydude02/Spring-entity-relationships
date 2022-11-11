@@ -21,11 +21,10 @@ Build a Resourcing API using the Java Spring Boot framework, that allows consume
 - GET /temps/{id} - get temp by id (should also display jobs they’ve been assigned to)
 
 **known issues:**
-- delete method returns status 500 instead of desired 404
-- update method returns status 500 instead of 404
 - deleting job that has been assigned to temp deletes temp and other respectively assigned jpbs
 
 **Future changes:**
-- ensure each method returns a suitable response status
 - ensure deletion of assigned jobs do not cascade to other jobs and the temp it was assigned to
+- test API's with swagger
+- Implement JWT authentication
 
