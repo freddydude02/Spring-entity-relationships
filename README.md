@@ -21,7 +21,7 @@ Build a Resourcing API using the Java Spring Boot framework, that allows consume
 swagger URL:
 - http://localhost:8080/test/swagger-ui/index.html
 
-**Endpoints:**
+**Endpoints:**  
 -AUTH-
 - POST /auth/signup - creates a new user (for authentication purposes)
 - POST /auth/login - given the correct login info, returns a bearer token to authenticate other requests
@@ -50,35 +50,33 @@ or job entities themselves.
 in order to check whether a temp is available for a job, I had to ensure the
 existing jobs that the temp already has assigned to them, does not overlap the
 start and end date of the prospective job. my approach to check this is to exit as
-early as possible.
+early as possible.  
 Assuming: A = Assigned job list, P = prospective job, S = start date, E = end date
 
-1. if temp has any pre-existing jobs assigned
-  (exits early if temp doesn't have job assigned already)
-    A: {}
-    P: [PS, PE]
+1. if temp has any pre-existing jobs assigned  
+   (exits early if temp doesn't have job assigned already)  
+    A: {}  
+    P: [PS, PE]  
     returns: {[PS, PE]}
     
 1.5. else sort Assigned job list from earliest to lastest
 
-2. if P date range falls outside of the first or last assigned date ranges
-    A: {[A0S, A0E], [A1S - A1E]}
-    P: [PS, PE]
-    if: 
-      PE is before A0S 
-       or
-      PS is after A1E
-    returns:
-      {[PS, PE], [A0S, A0E], [A1S - A1E]}
-       or
-      {[A0S, A0E], [A1S - A1E], [PS, PE]}
+2. if P date range falls outside of the first or last assigned date ranges  
+    A: {[A0S, A0E], [A1S - A1E]}  
+    P: [PS, PE]  
+    If:  PE is before A0S or PS is after A1E  
+    Returns:  
+     {[PS, PE], [A0S, A0E], [A1S - A1E]}  
+      or  
+     {[A0S, A0E], [A1S - A1E], [PS, PE]}
   
-3. iterate through the temp's assigned jobs. finding the date range between the end date of the
-  first job and start date of the next. Then checking if the prospective job fits within that date range
-    A: {[A0S, A0E], [A1S - A1E]}
-    P: [PS, PE]
-    if: PS is after A0E and PE is before A1S
-    returns: {[A0S, A0E], [PS, PE] ,[A1S - A1E]}
+3. iterate through the temp's assigned jobs. finding the date range between the end date
+   of the first job and start date of the next. Then checking if the prospective job fits
+   within that date range  
+    A: {[A0S, A0E], [A1S - A1E]}  
+    P: [PS, PE]  
+    If: PS is after A0E and PE is before A1S  
+    Returns: {[A0S, A0E], [PS, PE] ,[A1S - A1E]}
 
 4. if all logic is passed the job is not assigned
 
