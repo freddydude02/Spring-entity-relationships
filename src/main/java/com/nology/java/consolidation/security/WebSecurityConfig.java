@@ -53,7 +53,7 @@ public class WebSecurityConfig {
 	    public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
 	        http
 	               
-        	.cors().and().csrf().ignoringAntMatchers("/auth/**", "/test/**")
+        	.cors().and().csrf().ignoringAntMatchers("/auth/**", "/test/**", "/job/**","/temp/**")
             .and()
 //            ignoring instead of disable
             .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
