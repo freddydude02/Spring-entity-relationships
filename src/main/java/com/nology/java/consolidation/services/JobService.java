@@ -137,9 +137,11 @@ public class JobService {
 		return this.jRepo.save(existentJob);
 	}
 	
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void deleteJob (Long id) {
-		 jRepo.deleteById(id);
+	public Boolean deleteJob (Long id) {
+		Optional<Job> fetchedJob = getJob(id);
+		if (fetchedJob.isEmpty()) return null;
+		jRepo.deleteById(id);
+		return true;
 	}
 	
 	

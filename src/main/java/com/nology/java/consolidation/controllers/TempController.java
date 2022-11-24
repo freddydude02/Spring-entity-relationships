@@ -71,8 +71,8 @@ public class TempController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteTemp(@PathVariable Long id) {
-		String temp = tempService.deleteTemp(id);
+	public ResponseEntity<Boolean> deleteTemp(@PathVariable Long id) {
+		Boolean temp = tempService.deleteTemp(id);
 		if (temp == null) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}

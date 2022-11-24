@@ -116,12 +116,12 @@ public class TempService {
 		return this.tRepo.save(existentTemp);
 	}
 
-	public String deleteTemp(Long id) {
+	public Boolean deleteTemp(Long id) {
 		Optional<Temp> fetchedTemp = getTemp(id);
 		if (fetchedTemp.isEmpty())
 			return null;
 		tRepo.deleteById(id);
-		return "";
+		return true;
 	}
 
 }
